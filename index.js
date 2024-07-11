@@ -6,9 +6,27 @@ app.use(express.json())
 
  const plants=[
     {
-        "id": 6249,
+        "id": 5,
         "name": "Blue Rose",
         "prize":"150",
+        "category": "indoor",
+        "image": "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2019/07/GettyImages-680832819_321282711_479035882-615x400.jpg",
+        "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
+    }
+,
+    {
+        "id": 2,
+        "name": "Bamboo",
+        "prize":"170",
+        "category": "outdoor",
+        "image": "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2019/07/GettyImages-680832819_321282711_479035882-615x400.jpg",
+        "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
+    },
+
+    {
+        "id": 8,
+        "name": "Banana",
+        "prize":"250",
         "category": "outdoor",
         "image": "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2019/07/GettyImages-680832819_321282711_479035882-615x400.jpg",
         "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
@@ -91,20 +109,52 @@ app.get("/plants",(req,res)=>{
 
 app.get("/plant/:id",(req,res)=>{
     const{id}=req.params
-    const plant=plants.find(p=>p.id==id)
-    if(!plant){
-        return res.json({
-            success:false,
-            data:null,
-            message:"Plant not found"
-        })
-    }
+    const plant=plants.find((p)=> p.id==id)
+
     res.json({
-        success:true,
+        success:plant ? true : false,
         data:plant,
-        message:"Plant fetched successfully"
-  })
+        message:plant ? "Plant fetched successfully" : "plant not found"
+    })
 })
+
+app.put ("/plant/:id",(req,res)=>{
+    const{name,
+        category,
+        image,
+        prize,
+        description}= req.body
+    const {id} =req.params
+
+    let index = -1 
+    plants.forEach((plant,i)=>{
+        if(plant.id==id){
+            index=i 
+        }
+    })
+
+
+    const newObj = {
+        id,
+        name,
+        category,
+        image,
+        prize,
+        description
+    }
+ if (index == -1){
+    return res.json({
+        success:false,
+        data:null,
+        message:`Plant not found for id ${id}`,
+     })
+   }
+   else{
+    plants[index] = newObj
+   }
+  
+})
+
 
 const PORT=5000;
 app.listen(PORT,()=>{
