@@ -8,9 +8,10 @@ app.use(express.json())
     {
         "id": 6249,
         "name": "Blue Rose",
+        "prize":"150",
         "category": "outdoor",
         "image": "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2019/07/GettyImages-680832819_321282711_479035882-615x400.jpg",
-        "descrition": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
+        "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
     }
  ]
 
@@ -80,6 +81,31 @@ app.use(express.json())
     })
 
  })
+app.get("/plants",(req,res)=>{
+    res.json({
+        success:true,
+        data:plants,
+        message:"All plants fetched successfully"
+    })
+})
+
+app.get("/plant/:id",(req,res)=>{
+    const{id}=req.params
+    const plant=plants.find(p=>p.id==id)
+    if(!plant){
+        return res.json({
+            success:false,
+            data:null,
+            message:"Plant not found"
+        })
+    }
+    res.json({
+        success:true,
+        data:plant,
+        message:"Plant fetched successfully"
+  })
+})
+
 const PORT=5000;
 app.listen(PORT,()=>{
    console.log(`server is running on port ${PORT}`)
