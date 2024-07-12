@@ -32,7 +32,7 @@ app.use(express.json())
     }
  ]
 
- //create resource
+ //for  create plant
  app.post("/plant",(req,res)=>{
     const{name,
      category,
@@ -92,6 +92,8 @@ app.use(express.json())
     })
 
  })
+
+ // for read
 app.get("/plants",(req,res)=>{
     res.json({
         success:true,
@@ -100,6 +102,7 @@ app.get("/plants",(req,res)=>{
     })
 })
 
+//read plants
 app.get("/plant/:id",(req,res)=>{
     const{id}=req.params
     const plant=plants.find((p)=> p.id==id)
@@ -111,6 +114,7 @@ app.get("/plant/:id",(req,res)=>{
     })
 })
 
+// for update
 app.put ("/plant/:id",(req,res)=>{
     const{name,
         category,
@@ -152,6 +156,35 @@ app.put ("/plant/:id",(req,res)=>{
       })
   }
   
+ })
+
+ //for delete
+ app.delete("/plant/id",(res,req)=>{
+    const{id}=req.params
+
+ let index= -1
+ 
+  plants.forEach((plant,i )=>{
+    if(plant.id==id){
+        index= i
+    }
+  })
+  if(index==-1){
+    return res.json({
+        success:false,
+        message:`Plant not found with id ${id}`
+    })
+  }
+  
+  //for delete API
+ plants.splice(index,1)
+
+    res.json({
+        success:true,
+        message:"Plant delete Sucessfully",
+        data:null
+    
+    })
  })
 
 
