@@ -6,14 +6,13 @@ app.use(express.json())
 
  const plants=[
     {
-        "id": 5,
+        "id":5,
         "name": "Blue Rose",
         "prize":"150",
         "category": "indoor",
         "image": "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2019/07/GettyImages-680832819_321282711_479035882-615x400.jpg",
         "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
-    }
-,
+    },
     {
         "id": 2,
         "name": "Bamboo",
@@ -69,13 +68,7 @@ app.use(express.json())
             message:"Prize is required"
         })
          }
-         if(!description){
-               return res.json({
-            success:false,
-            data:null,
-            message:"Description is required"
-        })
-         }
+       
 
 
    const randomId=Math.round(Math.random()*10000)
@@ -151,9 +144,15 @@ app.put ("/plant/:id",(req,res)=>{
    }
    else{
     plants[index] = newObj
-   }
+    
+    res.json({
+        success:true,
+        data:newObj,
+        message:`Plant updated successfully`
+      })
+  }
   
-})
+ })
 
 
 const PORT=5000;
