@@ -161,33 +161,31 @@ app.put ("/plant/:id",(req,res)=>{
  //for delete
  app.delete("/plant/id",(res,req)=>{
     const{id}=req.params
-
- let index= -1
- 
-  plants.forEach((plant,i )=>{
-    if(plant.id==id){
-        index= i
-    }
-  })
-  if(index==-1){
-    return res.json({
-        success:false,
-        message:`Plant not found with id ${id}`
+    let index = -1
+    plants.forEach((plant,i)=>{
+        
+        if(plant.id==id){
+            index=i
+            }
     })
-  }
-  
-  //for delete API
- plants.splice(index,1)
-
+    if(index == -1){
+          return res.json({
+            success:false,
+            data:null,
+            message:`Plant not found for id ${id}`
+    }
+    )
+    }
+    plants.splice(index,1)
+    
     res.json({
         success:true,
-        message:"Plant delete Sucessfully",
-        data:null
-    
+        data:null,
+        message:"Plant deleted successfully"
     })
- })
-
-
+    })
+    
+   
 const PORT=5000;
 app.listen(PORT,()=>{
    console.log(`server is running on port ${PORT}`)
