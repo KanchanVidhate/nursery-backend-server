@@ -188,7 +188,10 @@ app.put ("/plant/:id",(req,res)=>{
       }
         })
       
-
+        //incomplete
+ app.use("*",(req,res)=>{
+    res.send( )
+ })
    
 const PORT=process.env.PORT
 app.listen(PORT,()=>{
