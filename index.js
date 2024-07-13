@@ -1,4 +1,6 @@
 import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config()
 
 const app=express();
 
@@ -159,34 +161,36 @@ app.put ("/plant/:id",(req,res)=>{
  })
 
  //for delete
- app.delete("/plant/id",(res,req)=>{
-    const{id}=req.params
-    let index = -1
-    plants.forEach((plant,i)=>{
-        
-        if(plant.id==id){
-            index=i
-            }
-    })
-    if(index == -1){
-          return res.json({
-            success:false,
-            data:null,
-            message:`Plant not found for id ${id}`
-    }
-    )
-    }
-    plants.splice(index,1)
-    
-    res.json({
-        success:true,
-        data:null,
-        message:"Plant deleted successfully"
-    })
-    })
-    
+ app.delete("/plant/:id",(req,res)=>{
+     const{id}=req.params
+     let index = -1
+     plants.forEach((plant,i)=>{
+         
+         if(plant.id==id){
+             index=i
+         }
+     }) 
+
+ if(index == -1){
+       return res.json({
+         success:false,
+         data:null,
+         message:`Plant not found for id ${id}`,
+     })
+      }
+       else{
+           plants.splice(index,1)
+           res.json({
+               success:true,
+               data:null,
+               message:`Plant deleted successfully`
+           })
+      }
+        })
+      
+
    
-const PORT=5000;
+const PORT=process.env.PORT
 app.listen(PORT,()=>{
    console.log(`server is running on port ${PORT}`)
 })
