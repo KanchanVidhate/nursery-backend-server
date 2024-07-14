@@ -34,6 +34,9 @@ app.use(express.json())
     }
  ]
 
+ 
+ //temporary data store
+
  //for  create plant
  app.post("/plant",(req,res)=>{
     const{name,
