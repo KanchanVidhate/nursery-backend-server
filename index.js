@@ -185,13 +185,15 @@ app.put ("/plant/:id",(req,res)=>{
                data:null,
                message:`Plant deleted successfully`
            })
-      }
-        })
+         }
+     })
       
-        //incomplete
+     
  app.use("*",(req,res)=>{
-    res.send( )
- })
+    res.send( `<div>
+        <h1 style="text-align:center;">404 Page not found</h1>
+        <div>`)
+     })
    
 const PORT=process.env.PORT
 app.listen(PORT,()=>{
