@@ -1,14 +1,29 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import dotenv from '.env';
 dotenv.config()
+import mongoose from 'mongoose';
 
 import { getHealth } from './controllers/health.js';
-import { postPlant,getPlants,getPlantId ,putPlantId,deletePlantId,useAll} from './controllers/plant.js';
+import { postPlant,getPlants,getPlantId ,putPlantId,deletePlantId,} from './controllers/plant.js';
+import { errorFound  } from './controllers/errors.js';
 
 
 const app=express();
 
 app.use(express.json())
+
+const dbConnection = async ()=>{
+    const  conn = await mongoose.connect(process.env.MONGO_URL)
+
+   if(conn){
+    console.log("connected to database... ")
+   }
+   else{
+       console.log("not connected to database")
+   }
+}
+dbConnection();
+
 
  const plants=[
     {
@@ -40,30 +55,26 @@ app.use(express.json())
 
  app.get("/health",getHealth)
 
-
  //for  create plant
  app.post("/plant",postPlant)
    
  // for read
 app.get("/plants", getPlants)
    
-
 //read plants
 app.get("/plant/:id", getPlantId)
    
-
 // for update
 app.put ("/plant/:id",putPlantId)
    
-
-
  //for delete
- app.delete("/plant/:id",deletePlantId)
-      
+ app.delete("/plant/:id",deletePlantId)  
    
- app.use("*",useAll)
+ app.use("*",errorFound)
    
-const PORT=process.env.PORT
+
+
+const PORT=process.env.PORT || 8000
 app.listen(PORT,()=>{
    console.log(`server is running on port ${PORT}`)
 })
