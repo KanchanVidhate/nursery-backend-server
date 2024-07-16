@@ -14,9 +14,7 @@ const app=express();
 app.use(express.json())
 
 const dbConnection = async ()=>{
-    const  conn = await mongoose.connect(
-           process.env.MONGO_URL,
-    )
+    const  conn = await mongoose.connect(process.env.MONGO_URL)
 
    if(conn){
     console.log("connected to database... ")
