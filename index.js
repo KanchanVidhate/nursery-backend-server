@@ -1,5 +1,6 @@
 import express from 'express';
-import dotenv from '.env';
+import dotenv from 'dotenv';
+
 dotenv.config()
 import mongoose from 'mongoose';
 
@@ -13,7 +14,9 @@ const app=express();
 app.use(express.json())
 
 const dbConnection = async ()=>{
-    const  conn = await mongoose.connect(process.env.MONGO_URL)
+    const  conn = await mongoose.connect(
+           process.env.MONGO_URL,
+    )
 
    if(conn){
     console.log("connected to database... ")
