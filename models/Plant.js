@@ -5,6 +5,7 @@ const plantSchema = new Schema({
     description: String,
     image: String,
     price: Number,
+    
 
 
 })

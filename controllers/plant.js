@@ -1,18 +1,22 @@
 import Plant from "../models/Plant.js"
+  const plants = []
 
 const postPlant =  async (res,req)=>{
-    const{name,
-        category,
-        image,
-        prize,
-        description}= req.body
 
+     const {
+        name,
+        category,
+        image,prize,
+        description}= req.body
+        
+   
+   
         const newPlant= new Plant({
-            name:name,
-            category : category,
-            image :  image,
-            prize:  prize,
-            description: description
+            name,
+            category,
+            image,
+           prize,
+            description
         })
 
    const savedPlant = await newPlant.save();
@@ -28,10 +32,13 @@ const postPlant =  async (res,req)=>{
     }
    
    // 
-const getPlants=(res,req)=>{
+const getPlants= async (res,req)=>{
+
+     const allPlants = await  Plant.find()
+
     res.json({
         success:true,
-        data:plants,
+        data : allPlants,
         message:"All plants fetched successfully"
     })
 
@@ -39,8 +46,8 @@ const getPlants=(res,req)=>{
 
 //
 const getPlantId=(res,req)=>{
-    const{id}=req.params
-    const plant=plants.find((p)=> p.id==id)
+    const{id}= req.params
+    const plant = plants.find((p)=> p.id==id)
 
     res.json({
         success:plant ? true : false,
