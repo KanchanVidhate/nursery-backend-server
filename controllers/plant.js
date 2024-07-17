@@ -112,3 +112,12 @@ const deletePlantId=(req,res)=>{
 
 //
 
+
+export{
+    postPlant,
+    getPlants,
+    getPlantId,
+    putPlantId,
+    deletePlantId
+
+}
