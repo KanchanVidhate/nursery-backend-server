@@ -14,19 +14,19 @@ const app=express();
 
 app.use(express.json())
 
-const dbConnection = async ()=>{
-
-    const  conn = await mongoose.connect(process.env.MONGO_URL)
-
-   if(conn){
-    console.log("connected to database... ")
-   }
-   else{
-       console.log("not connected to database")
-   }
-};
-dbConnection();
-
+const dbConnection = async () => {
+    try {
+      const conn = await mongoose.connect(process.env.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+      console.log("connected to database... ");
+    } catch (error) {
+      console.error("Error connecting to database:", error);
+  
+      log.error("Error connecting to database:", error);
+    }
+  };
 
  const plants=[
     {
