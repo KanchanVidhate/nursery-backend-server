@@ -1,55 +1,23 @@
+import Plant from "../models/Plant.js"
 
-const postPlant = (res,req)=>{
+const postPlant =  async (res,req)=>{
     const{name,
         category,
         image,
         prize,
         description}= req.body
-   
-        if(!name){
-          return res.json({
-               success:false,
-               data:null,
-               message:"Name is required"
-           })
-            }
-            if(!category){
-                  return res.json({
-               success:false,
-               data:null,
-               message:"Category is required"
-           })
-            }
-            if(!image){
-                  return res.json({
-               success:false,
-               data:null,
-               message:"Image is required"
-           })
-            }
-            if(!prize){
-                  return res.json({
-               success:false,
-               data:null,
-               message:"Prize is required"
-           })
-            }
-          
-   
-   
-      const randomId=Math.round(Math.random()*10000)
-   
-      const newPlant = {
-        id:randomId,
-        name:name,
-        category:category,
-        image:image,
-        prize:prize,
-        descrition:description
-        
-      }
-   
-      plants.push(newPlant)
+
+        const newPlant= new Plant({
+            name:name,
+            category : category,
+            image :  image,
+            prize:  prize,
+            description: description
+        })
+
+   const savedPlant = await newPlant.save();
+
+         
    
        res.json({
         sucess:true,
