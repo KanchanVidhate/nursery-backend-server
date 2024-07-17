@@ -10,74 +10,43 @@ import { errorFound  } from './controllers/errors.js';
 
 
 
-const app=express();
+
+const app = express()
 
 app.use(express.json())
 
 const dbConnection = async () => {
-    try {
-      const conn = await mongoose.connect(process.env.MONGO_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-      console.log("connected to database... ");
-    } catch (error) {
-      console.error("Error connecting to database:", error);
-  
-      log.error("Error connecting to database:", error);
-    }
-  };
+    const conn = await mongoose.connect(process.env.MONGO_URL)
+    
+    if(conn){
+      console.log(`MongoDB  connected`)
 
- const plants=[
-    {
-        "id":5,
-        "name": "Blue Rose",
-        "prize":"150",
-        "category": "indoor",
-        "image": "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2019/07/GettyImages-680832819_321282711_479035882-615x400.jpg",
-        "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
-    },
-    {
-        "id": 2,
-        "name": "Bamboo",
-        "prize":"170",
-        "category": "outdoor",
-        "image": "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2019/07/GettyImages-680832819_321282711_479035882-615x400.jpg",
-        "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
-    },
-
-    {
-        "id": 8,
-        "name": "Banana",
-        "prize":"250",
-        "category": "outdoor",
-        "image": "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2019/07/GettyImages-680832819_321282711_479035882-615x400.jpg",
-        "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
     }
- ]
+    else{
+      console.log('MongoDB not connected')
+    }
+    }
+    dbConnection();
+
+ 
 
  app.get("/health",getHealth)
-
  //for  create plant
  app.post("/plant",postPlant)
-   
  // for read
 app.get("/plants", getPlants)
-   
-//read plants
+  //read plants
 app.get("/plant/:id", getPlantId)
-   
-// for update
+   // for update
 app.put ("/plant/:id",putPlantId)
-   
- //for delete
+    //for delete
  app.delete("/plant/:id",deletePlantId)  
    
  app.use("*",errorFound)
    
 
+ const PORT=process.env.PORT || 8000
 
-const PORT=process.env.PORT || 8000
 app.listen(PORT,()=>{
    console.log(`server is running on port ${PORT}`)
 })

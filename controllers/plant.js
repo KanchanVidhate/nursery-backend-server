@@ -45,62 +45,42 @@ const getPlants= async (res,req)=>{
 }
 
 //
-const getPlantId=(res,req)=>{
+const getPlantId= async (res,req)=>{
     const{id}= req.params
-    const plant = plants.find((p)=> p.id==id)
+
+    const plant = await Plant.findById(id )
 
     res.json({
         success:plant ? true : false,
-        data:plant,
+        data:plant || null ,
         message:plant ? "Plant fetched successfully" : "plant not found"
     })
 
 }
 
 //
-const putPlantId=(req,res)=>{
+const putPlantId= async(req,res)=>{
     const{name,
         category,
         image,
         prize,
         description}= req.body
     const {id} =req.params
-
-    let index = -1 
-    plants.forEach((plant,i)=>{
-        if(plant.id==id){
-            index=i 
-        }
-    })
-
-
-    const newObj = {
-        id,
-        name,
-        category,
-        image,
-        prize,
-        description
-    }
- if (index == -1){
-    return res.json({
-        success:false,
-        data:null,
-        message:`Plant not found for id ${id}`,
+   
+     const updateReasult = await Plant.updateOne({_id:id},{
+        $set:{name,
+            category: category,
+            image:image,  
+            prize:  prize,
+            description:  description}
      })
-   }
-   else{
-    plants[index] = newObj
-    
-    res.json({
-        success:true,
-        data:newObj,
-        message:`Plant updated successfully`
-      })
-  }
-  
-}
 
+      res.json({
+        succes: true,
+        data:updateReasult,
+        message:"Plant updated successfully"
+      })
+    }
 //
 const deletePlantId=(req,res)=>{
     const{id}=req.params
