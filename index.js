@@ -9,11 +9,13 @@ import { postPlant,getPlants,getPlantId ,putPlantId,deletePlantId,} from './cont
 import { errorFound  } from './controllers/errors.js';
 
 
+
 const app=express();
 
 app.use(express.json())
 
 const dbConnection = async ()=>{
+
     const  conn = await mongoose.connect(process.env.MONGO_URL)
 
    if(conn){
@@ -22,7 +24,7 @@ const dbConnection = async ()=>{
    else{
        console.log("not connected to database")
    }
-}
+};
 dbConnection();
 
 
