@@ -1,5 +1,34 @@
 import Plant from "../models/Plant.js"
-  const plants = []
+
+  const plants = [
+    {
+        
+            "id":5,
+            "name": "Blue Rose",
+            "prize":"150",
+            "category": "indoor",
+            "image": "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2019/07/GettyImages-680832819_321282711_479035882-615x400.jpg",
+            "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
+        },
+        {
+            "id":6,
+            "name": "Red Rose",
+            "prize":"200",
+            "category": "indoor",
+            "image": "https://www.gardeningknowhow.com/wp-content/uploads/2017/09/red-rose.jpg",
+            "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
+        },
+        {
+            "id":7,
+            "name": "Yellow Rose",
+            "prize":"250",
+            "category": "indoor",
+            "image": "https://www.gardeningknowhow.com/wp-content/uploads/2017/09/yellow-rose.jpg",
+            "description": "SeedsVille Blue Climbing Rose Flower Seeds is a perfect choice for those who want to add some color and beauty to their garden."
+        }
+    
+  ]
+
 
 const postPlant =  async (res,req)=>{
 
